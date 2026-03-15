@@ -24,6 +24,12 @@ npm run build:prod
 
 Copier `.env.example` puis injecter les bonnes valeurs selon la cible.
 
+## Version Node
+
+Utiliser Node `20.x LTS`.
+
+La stack actuelle `react-scripts` 4 échoue sous Node 23 avec un problème de compatibilité `postcss`.
+
 ## Recommandations
 
 1. `staging` doit utiliser des endpoints et des credentials isolés.

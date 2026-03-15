@@ -6,12 +6,13 @@ import EnvironmentBadge from "../../components/EnvironmentBadge/EnvironmentBadge
 import SearchBox from "../../components/SearchBox/SearchBox";
 import SharePanel from "../../components/SharePanel/SharePanel";
 import Scroll from "../../components/Scroll/Scroll";
-import { appConfig } from "../../config/appConfig";
+import { createAppConfig } from "../../config/appConfig";
 import { authService } from "../../services/auth/authService";
 import { fetchRobots } from "../../services/robots/robotService";
 import "./App.css";
 
 function App() {
+  const runtimeConfig = createAppConfig();
   const [robots, setRobots] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -95,7 +96,7 @@ function App() {
     <main className="app-shell">
       <section className="app-panel">
         <header className="app-hero">
-          <EnvironmentBadge environment={appConfig.environment} />
+          <EnvironmentBadge environment={runtimeConfig.environment} />
           <p className="app-kicker">System update</p>
           <h1>RoboFriends</h1>
           <p className="app-subtitle">
@@ -122,7 +123,7 @@ function App() {
           <SearchBox searchField={searchField} searchChange={handleSearchChange} />
         ) : null}
 
-        {account && selectedRobot && appConfig.enableQrSharing ? (
+        {account && selectedRobot && runtimeConfig.enableQrSharing ? (
           <SharePanel
             robot={selectedRobot}
             accountName={account.displayName}

@@ -17,6 +17,12 @@ npm install
 npm start
 ```
 
+Node recommande:
+
+```bash
+20.x LTS
+```
+
 Build staging:
 
 ```bash
@@ -45,3 +51,4 @@ npm test -- --watchAll=false
 - La structure frontend est désormais prête pour `staging` et `production`.
 - L'auth actuelle reste locale pour la démo.
 - Pour une vraie prod publique, il faut brancher un backend sécurisé derrière `authService`.
+- Avec `react-scripts` 4, les builds doivent tourner sous Node 20 LTS, pas Node 23.

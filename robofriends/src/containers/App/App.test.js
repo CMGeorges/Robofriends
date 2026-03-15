@@ -52,7 +52,7 @@ describe("App", () => {
       target: { value: "Cameron" },
     });
     fireEvent.click(screen.getByRole("button", { name: /save profile/i }));
-    expect(screen.getByText("Cameron")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("Cameron")).toBeInTheDocument());
 
     fireEvent.change(screen.getByLabelText(/search robot directory/i), {
       target: { value: "zzz" },
@@ -81,7 +81,7 @@ describe("App", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
 
-    expect(screen.getByText(/incorrect email or password/i)).toBeInTheDocument();
+    expect(await screen.findByText(/incorrect email or password/i)).toBeInTheDocument();
   });
 
   it("logs in successfully with an existing stored account", async () => {
@@ -186,8 +186,9 @@ describe("App", () => {
       target: { value: "secret" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    await screen.findByText("Leanne Graham");
 
-    fireEvent.click(screen.getByRole("button", { name: /share avatar qr/i }));
+    fireEvent.click(screen.getAllByRole("button", { name: /share avatar qr/i })[0]);
     expect(screen.queryByText(/avatar qr share/i)).not.toBeInTheDocument();
   });
 
