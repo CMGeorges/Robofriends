@@ -1,17 +1,22 @@
 import React from "react";
+import "./SearchBox.css";
 
-function SearchBox({searchfield,searchChange}): JSX.Element {
+function SearchBox({ searchField, searchChange }) {
   return (
-    <>
+    <div className="search-box">
+      <label className="search-box-label" htmlFor="robot-search">
+        Search robot directory
+      </label>
       <input
-        className="pa3 ba b--green bg-lightest-blue"
+        className="search-box-input"
         type="search"
-        name=""
-        id=""
-        placeholder="search robots"
+        name="robot-search"
+        id="robot-search"
+        placeholder="Search robots by name"
+        value={searchField}
         onChange={searchChange}
       />
-    </>
+    </div>
   );
 }
 

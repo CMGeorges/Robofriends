@@ -1,30 +1,21 @@
-import React from 'react';
-import Card from '../Card/Card'
+import React from "react";
+import Card from "../Card/Card";
+import "./CardList.css";
 
-
-
-//using state
-
-
-function CardList({ robots }) {
-    //the return component
-    return (
-        <div >
-            {//the loop
-                robots.map((user, i) => {
-                    return (
-                    <Card 
-                    key={ i }
-                     id={ robots[ i ].id } 
-                     name={ robots[ i ].name } 
-                     email={ robots[ i ].email } 
-                     />
-                     );
-
-                })
-            }
-        </div>
-    )
+function CardList({ robots, onShareAvatar }) {
+  return (
+    <section className="card-list" aria-label="Robot directory">
+      {robots.map((robot) => (
+        <Card
+          key={robot.id}
+          id={robot.id}
+          name={robot.name}
+          email={robot.email}
+          onShareAvatar={onShareAvatar}
+        />
+      ))}
+    </section>
+  );
 }
 
-export default CardList
+export default CardList;
