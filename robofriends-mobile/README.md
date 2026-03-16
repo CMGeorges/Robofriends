@@ -21,6 +21,28 @@ Then use:
 - `i` for iOS on macOS
 - Expo Go for device testing
 
+## Android deployment
+
+Google Play deployment is prepared with Expo EAS.
+
+Build a production Android bundle:
+
+```bash
+npm run build:android
+```
+
+Submit to Google Play:
+
+```bash
+npm run submit:android
+```
+
+Current Android application id:
+
+```text
+com.cmgeorges.robofriends
+```
+
 ## Current scope
 
 - Mobile account flow with persisted session
@@ -34,6 +56,11 @@ Then use:
 - Move auth to a real backend
 - Add app icons, splash, and platform branding
 - Add mobile test coverage
+
+## Google Play notes
+
+- Google Play requires an Android App Bundle (`.aab`) for new apps.
+- You will need to sign in to Expo and connect the Google Play Console service account when submitting.
 
 ## Troubleshooting
 
