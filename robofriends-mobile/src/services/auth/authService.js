@@ -7,6 +7,8 @@ const createAccountRecord = ({ displayName, email, password }) => ({
   displayName: displayName.trim(),
   email: email.trim().toLowerCase(),
   password,
+  avatarSeed: displayName.trim(),
+  provider: "email",
 });
 
 const loadStoredAccount = async () => {
@@ -42,6 +44,22 @@ export const registerAccount = async ({ displayName, email, password }) => {
   return account;
 };
 
+export const loginWithSocialProvider = async (provider) => {
+  const providerLabel = provider.trim();
+  const normalizedProvider = providerLabel.toLowerCase();
+  const account = {
+    displayName: `${providerLabel} Friend`,
+    email: `${normalizedProvider}@robofriends.mobile`,
+    password: "social-login",
+    avatarSeed: `${providerLabel} Friend`,
+    provider: normalizedProvider,
+  };
+
+  await Promise.all([saveAccount(account), saveSession(account.email)]);
+
+  return account;
+};
+
 export const loginAccount = async ({ email, password }) => {
   const account = await loadStoredAccount();
   const normalizedEmail = email.trim().toLowerCase();
@@ -55,7 +73,7 @@ export const loginAccount = async ({ email, password }) => {
   return account;
 };
 
-export const updateAccountProfile = async ({ displayName }) => {
+export const updateAccountProfile = async ({ displayName, avatarSeed }) => {
   const account = await loadStoredAccount();
 
   if (!account) {
@@ -65,6 +83,7 @@ export const updateAccountProfile = async ({ displayName }) => {
   const updatedAccount = {
     ...account,
     displayName: displayName.trim(),
+    avatarSeed: avatarSeed.trim() || displayName.trim(),
   };
 
   await saveAccount(updatedAccount);

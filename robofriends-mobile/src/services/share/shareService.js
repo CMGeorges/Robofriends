@@ -1,6 +1,7 @@
 import { appConfig } from "../../config/appConfig";
 
-export const buildAvatarUrl = (id) => `https://robohash.org/${id}?200x200`;
+export const buildAvatarUrl = (seed) =>
+  `https://robohash.org/${encodeURIComponent(String(seed))}?200x200`;
 
 export const buildShareUrl = ({ robotId, robotName, ownerName }) =>
   `${appConfig.shareBaseUrl}/share?robot=${robotId}&name=${encodeURIComponent(
