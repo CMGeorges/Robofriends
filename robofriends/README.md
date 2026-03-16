@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# RoboFriends Engineering Baseline
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Cette branche pose une base plus sérieuse pour la migration mobile et la préparation `staging` / `production` de RoboFriends.
 
-## Available Scripts
+## Ce qui a changé
 
-In the project directory, you can run:
+- UI mobile-first modernisée
+- Login, compte et partage QR
+- Configuration d'environnement centralisée
+- Couche de services pour API, auth et partage
+- Documentation d'architecture et de déploiement
 
-### `yarn start`
+## Commandes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+npm install
+npm start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Node recommande:
 
-### `yarn test`
+```bash
+20.x LTS
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Build staging:
 
-### `yarn build`
+```bash
+npm run build:staging
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Build production:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm run build:prod
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Tests:
 
-### `yarn eject`
+```bash
+npm test -- --watchAll=false
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Documentation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Architecture](./docs/ARCHITECTURE.md)
+- [Deployment](./docs/DEPLOYMENT.md)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Réalité produit
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- La structure frontend est désormais prête pour `staging` et `production`.
+- L'auth actuelle reste locale pour la démo.
+- Pour une vraie prod publique, il faut brancher un backend sécurisé derrière `authService`.
+- Avec `react-scripts` 4, les builds doivent tourner sous Node 20 LTS, pas Node 23.

@@ -1,0 +1,56 @@
+.account-panel {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 24px;
+  padding: 20px;
+  border: 1px solid rgba(159, 244, 232, 0.18);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  text-align: left;
+}
+
+.account-label,
+.account-email {
+  margin: 0;
+}
+
+.account-panel h2 {
+  margin: 4px 0;
+}
+
+.account-form {
+  display: grid;
+  gap: 8px;
+}
+
+.account-form input,
+.account-form button,
+.account-logout {
+  padding: 12px 14px;
+  border-radius: 14px;
+}
+
+.account-form input {
+  border: 1px solid rgba(159, 244, 232, 0.28);
+}
+
+.account-form button,
+.account-logout {
+  border: 0;
+  background: rgba(159, 244, 232, 0.92);
+  color: #07343d;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.account-logout {
+  background: rgba(255, 255, 255, 0.16);
+  color: #efffff;
+}
+
+@media (min-width: 768px) {
+  .account-panel {
+    grid-template-columns: 1.2fr 1fr auto;
+    align-items: end;
+  }
+}

@@ -1,20 +1,22 @@
-import React from 'react'
+import React from "react";
+import { buildAvatarUrl } from "../../services/share/shareService";
+import "./Card.css";
 
-function Card({email,name,id}) {
-
-    return (
-        <div className="tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
-            <div >
-            <img src={`https://robohash.org/${id}?200x200`} alt="robots" />
-
-            </div>
-            <div>
-                <h2>{name}</h2>
-                <p>{email}</p>
-            </div>
-        </div>
-        
-    )
+function Card({ email, name, id, onShareAvatar }) {
+  return (
+    <article className="card">
+      <div className="card-media">
+        <img src={buildAvatarUrl(id)} alt={`${name} robot avatar`} />
+      </div>
+      <div className="card-body">
+        <h2>{name}</h2>
+        <p>{email}</p>
+      </div>
+      <button className="card-share" type="button" onClick={() => onShareAvatar({ id, name, email })}>
+        Share avatar QR
+      </button>
+    </article>
+  );
 }
 
-export default Card
+export default Card;

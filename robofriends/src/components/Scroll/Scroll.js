@@ -1,13 +1,8 @@
-import React from 'react'
-import './Scroll.css'
+import React from "react";
+import "./Scroll.css";
 
-//Scroll component
- function Scroll(props) {
-    return (
-        <div className="scroll">
-            {props.children}
-        </div>
-    )
+function Scroll({ children }) {
+  return <div className="scroll">{children}</div>;
 }
 
-export default Scroll
+export default Scroll;
