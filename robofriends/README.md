@@ -58,14 +58,15 @@ How it works:
 
 - every push to `master` that touches the web app runs tests
 - the app is built with `npm run build:prod`
-- the generated `build/` output is deployed to GitHub Pages
+- the generated `build/` output is pushed to the `gh-pages` branch
 
 GitHub setup required once:
 
 1. Open the repository on GitHub.
 2. Go to `Settings` -> `Pages`.
-3. Set `Source` to `GitHub Actions`.
-4. Keep the repo public if you want free public hosting.
+3. Set `Source` to `Deploy from a branch`.
+4. Select branch `gh-pages` and folder `/ (root)`.
+5. Keep the repo public if you want free public hosting.
 
 Current public URL:
 
