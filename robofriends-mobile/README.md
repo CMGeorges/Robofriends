@@ -9,6 +9,12 @@ npm install
 npm start
 ```
 
+If Expo Go times out on your local Wi-Fi, use tunnel mode:
+
+```bash
+npm run start:tunnel
+```
+
 Then use:
 
 - `a` for Android
@@ -28,3 +34,9 @@ Then use:
 - Move auth to a real backend
 - Add app icons, splash, and platform branding
 - Add mobile test coverage
+
+## Troubleshooting
+
+- If Expo Go says the request timed out, first try `npm run start:tunnel`.
+- Keep Expo Go updated to the latest version.
+- Make sure the phone and computer are on the same network if using normal LAN mode.
