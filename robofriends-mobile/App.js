@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import AccountHeader from "./src/components/AccountHeader";
+import AddFriendCard from "./src/components/AddFriendCard";
 import AuthCard from "./src/components/AuthCard";
 import RobotCard from "./src/components/RobotCard";
 import SearchBar from "./src/components/SearchBar";
@@ -18,9 +19,11 @@ import {
   clearSession,
   getAuthenticatedAccount,
   loginAccount,
+  loginWithSocialProvider,
   registerAccount,
   updateAccountProfile,
 } from "./src/services/auth/authService";
+import { getSavedFriends, saveFriend } from "./src/services/friends/friendService";
 import { fetchRobots } from "./src/services/robots/robotService";
 
 export default function App() {
@@ -31,20 +34,23 @@ export default function App() {
   const [authErrorMessage, setAuthErrorMessage] = useState("");
   const [account, setAccount] = useState(null);
   const [selectedRobot, setSelectedRobot] = useState(null);
+  const [savedFriends, setSavedFriends] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
 
     const loadInitialState = async () => {
       try {
-        const [users, authenticatedAccount] = await Promise.all([
+        const [users, authenticatedAccount, storedFriends] = await Promise.all([
           fetchRobots(),
           getAuthenticatedAccount(),
+          getSavedFriends(),
         ]);
 
         if (isMounted) {
           setRobots(users);
           setAccount(authenticatedAccount);
+          setSavedFriends(storedFriends);
         }
       } catch (error) {
         if (isMounted) {
@@ -64,7 +70,9 @@ export default function App() {
     };
   }, []);
 
-  const filteredRobots = robots.filter((robot) =>
+  const allFriends = [...savedFriends, ...robots];
+
+  const filteredRobots = allFriends.filter((robot) =>
     robot.name.toLowerCase().includes(searchField.toLowerCase())
   );
 
@@ -84,15 +92,26 @@ export default function App() {
     }
   };
 
-  const handleSaveProfile = async ({ displayName }) => {
-    const updatedAccount = await updateAccountProfile({ displayName });
+  const handleSaveProfile = async ({ displayName, avatarSeed }) => {
+    const updatedAccount = await updateAccountProfile({ displayName, avatarSeed });
     setAccount(updatedAccount);
+  };
+
+  const handleSocialLogin = async (provider) => {
+    const nextAccount = await loginWithSocialProvider(provider);
+    setAuthErrorMessage("");
+    setAccount(nextAccount);
   };
 
   const handleLogout = async () => {
     await clearSession();
     setAccount(null);
     setSelectedRobot(null);
+  };
+
+  const handleSaveFriend = async (friendValues) => {
+    const nextFriend = await saveFriend(friendValues);
+    setSavedFriends((currentFriends) => [nextFriend, ...currentFriends]);
   };
 
   const renderRobotList = () => {
@@ -156,11 +175,14 @@ export default function App() {
           <AuthCard
             onCreateAccount={handleCreateAccount}
             onLogin={handleLogin}
+            onSocialLogin={handleSocialLogin}
             errorMessage={authErrorMessage}
           />
         )}
 
         {account ? <SearchBar value={searchField} onChangeText={setSearchField} /> : null}
+
+        {account ? <AddFriendCard onSaveFriend={handleSaveFriend} /> : null}
 
         {account && selectedRobot ? (
           <ShareSheet

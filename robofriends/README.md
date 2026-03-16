@@ -46,6 +46,31 @@ npm test -- --watchAll=false
 - [Architecture](./docs/ARCHITECTURE.md)
 - [Deployment](./docs/DEPLOYMENT.md)
 
+## GitHub Pages CI/CD
+
+This web app can be published for free on GitHub Pages.
+
+Automatic deployment is now defined in:
+
+- [deploy-web-pages.yml](/Users/camsl/OneDrive/Documents/GitHub/Robofriends/.github/workflows/deploy-web-pages.yml)
+
+How it works:
+
+- every push to `master` that touches the web app runs tests
+- the app is built with `npm run build:prod`
+- the generated `build/` output is deployed to GitHub Pages
+
+GitHub setup required once:
+
+1. Open the repository on GitHub.
+2. Go to `Settings` -> `Pages`.
+3. Set `Source` to `GitHub Actions`.
+4. Keep the repo public if you want free public hosting.
+
+Current public URL:
+
+- [cmgeorges.github.io/Robofriends](https://cmgeorges.github.io/Robofriends/)
+
 ## Réalité produit
 
 - La structure frontend est désormais prête pour `staging` et `production`.

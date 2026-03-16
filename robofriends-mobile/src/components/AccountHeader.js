@@ -1,15 +1,28 @@
-import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { buildAvatarUrl } from "../services/share/shareService";
 
 function AccountHeader({ account, onSaveProfile, onLogout }) {
   const [displayName, setDisplayName] = useState(account.displayName);
+  const [avatarSeed, setAvatarSeed] = useState(account.avatarSeed || account.displayName);
+
+  useEffect(() => {
+    setDisplayName(account.displayName);
+    setAvatarSeed(account.avatarSeed || account.displayName);
+  }, [account]);
 
   return (
     <View style={styles.shell}>
-      <View style={styles.copyBlock}>
-        <Text style={styles.eyebrow}>Signed in</Text>
-        <Text style={styles.name}>{account.displayName}</Text>
-        <Text style={styles.email}>{account.email}</Text>
+      <View style={styles.topRow}>
+        <Image
+          source={{ uri: buildAvatarUrl(avatarSeed || displayName || "robofriend") }}
+          style={styles.avatar}
+        />
+        <View style={styles.copyBlock}>
+          <Text style={styles.eyebrow}>Signed in via {account.provider || "email"}</Text>
+          <Text style={styles.name}>{account.displayName}</Text>
+          <Text style={styles.email}>{account.email}</Text>
+        </View>
       </View>
 
       <View style={styles.actions}>
@@ -20,8 +33,18 @@ function AccountHeader({ account, onSaveProfile, onLogout }) {
           placeholder="Profile display name"
           placeholderTextColor="#7fa6ae"
         />
+        <TextInput
+          style={styles.input}
+          value={avatarSeed}
+          onChangeText={setAvatarSeed}
+          placeholder="Avatar seed"
+          placeholderTextColor="#7fa6ae"
+        />
         <View style={styles.buttonRow}>
-          <Pressable style={styles.primaryButton} onPress={() => onSaveProfile({ displayName })}>
+          <Pressable
+            style={styles.primaryButton}
+            onPress={() => onSaveProfile({ displayName, avatarSeed })}
+          >
             <Text style={styles.primaryButtonText}>Save</Text>
           </Pressable>
           <Pressable style={styles.secondaryButton} onPress={onLogout}>
@@ -42,8 +65,20 @@ const styles = StyleSheet.create({
     borderColor: "rgba(159, 244, 232, 0.18)",
     gap: 16,
   },
+  topRow: {
+    flexDirection: "row",
+    gap: 14,
+    alignItems: "center",
+  },
+  avatar: {
+    width: 84,
+    height: 84,
+    borderRadius: 42,
+    backgroundColor: "#ffffff",
+  },
   copyBlock: {
     gap: 4,
+    flex: 1,
   },
   eyebrow: {
     color: "#9ff4e8",

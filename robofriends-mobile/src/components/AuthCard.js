@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-function AuthCard({ onCreateAccount, onLogin, errorMessage }) {
+const SOCIAL_PROVIDERS = ["Facebook", "Gmail", "X", "TikTok", "Instagram"];
+
+function AuthCard({ onCreateAccount, onLogin, onSocialLogin, errorMessage }) {
   const [mode, setMode] = useState("signup");
   const [formValues, setFormValues] = useState({
     displayName: "",
@@ -89,6 +91,21 @@ function AuthCard({ onCreateAccount, onLogin, errorMessage }) {
       <Pressable style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitText}>{mode === "signup" ? "Continue" : "Sign in"}</Text>
       </Pressable>
+
+      <View style={styles.socialShell}>
+        <Text style={styles.socialTitle}>Quick connect</Text>
+        <View style={styles.socialGrid}>
+          {SOCIAL_PROVIDERS.map((provider) => (
+            <Pressable
+              key={provider}
+              style={styles.socialButton}
+              onPress={() => onSocialLogin(provider)}
+            >
+              <Text style={styles.socialButtonText}>{provider}</Text>
+            </Pressable>
+          ))}
+        </View>
+      </View>
     </View>
   );
 }
@@ -152,6 +169,28 @@ const styles = StyleSheet.create({
   submitText: {
     color: "#063640",
     fontWeight: "800",
+  },
+  socialShell: {
+    gap: 10,
+  },
+  socialTitle: {
+    color: "#b5d7dd",
+    fontWeight: "700",
+  },
+  socialGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  socialButton: {
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 999,
+    backgroundColor: "rgba(255,255,255,0.12)",
+  },
+  socialButtonText: {
+    color: "#efffff",
+    fontWeight: "700",
   },
 });
 

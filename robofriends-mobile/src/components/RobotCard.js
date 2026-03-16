@@ -6,7 +6,7 @@ function RobotCard({ robot, onShare }) {
   return (
     <View style={styles.card}>
       <View style={styles.imageWrap}>
-        <Image source={{ uri: buildAvatarUrl(robot.id) }} style={styles.image} />
+        <Image source={{ uri: buildAvatarUrl(robot.avatarSeed || robot.id) }} style={styles.image} />
       </View>
       <Text style={styles.name}>{robot.name}</Text>
       <Text style={styles.email}>{robot.email}</Text>
